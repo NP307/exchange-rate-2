@@ -1,5 +1,6 @@
 import logo from './logo.svg';
 import './App.css';
+import InputV from './exchangeInput/Input';
 
 function App() {
   return (
@@ -17,7 +18,8 @@ function App() {
         >
           Learn React
         </a>
-      </header>
+        <InputV />
+        </header>
     </div>
   );
 }
