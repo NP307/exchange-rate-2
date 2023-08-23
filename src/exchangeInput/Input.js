@@ -9,7 +9,9 @@ class InputV extends React.Component {
             valueEUR: '',
             isLoading: true,
             exchange: {},
-        };
+            inputData: [],
+        }
+        ;
 
         this.exchangeUAH = this.exchangeUAH.bind(this);
         this.exchangeUSD = this.exchangeUSD.bind(this);
@@ -58,18 +60,37 @@ class InputV extends React.Component {
                 <div>puk</div>
             )
         } else {
+            this.setState({inputData: [
+                    {
+                        value: this.state.valueUAH,
+                        placeholder: 'UAH',
+                        func: this.exchangeUAH
+                    },
+
+                    {
+                        value: this.state.valueUSD,
+                        placeholder: 'USD',
+                        func: this.exchangeUSD
+                    },
+
+                    {
+                        value: this.state.valueEUR,
+                        placeholder: 'EUR',
+                        func: this.exchangeEUR
+                    }
+                ]});
             return (
                 <div>
                     <div>
-                        <input style={{margin: 10}} value={Number(this.state.valueUAH)} placeholder="UAH"
-                               onChange={this.exchangeUAH}
-                        />
-                        <input style={{margin: 10}} value={Number(this.state.valueUSD)} placeholder="USD"
-                               onChange={this.exchangeUSD}
-                        />
-                        <input style={{margin: 10}} value={Number(this.state.valueEUR)} placeholder="EUR"
-                               onChange={this.exchangeEUR}
-                        />
+                        {
+                            this.state.inputData.map(inputItem => {
+                                return(
+                                    <input style={{margin: 10}} value={Number(inputItem.value)} placeholder={inputItem.placeholder}
+                                           onChange={inputItem.func}
+                                    />
+                                )
+                            })
+                        }
                     </div>
                 </div>
             )
