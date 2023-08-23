@@ -30,25 +30,25 @@ class InputV extends React.Component {
 
     exchangeUAH(e) {
         this.setState({
-            valueUAH: Number(e.target.value).toFixed(2),
-            valueUSD: Number(e.target.value * (this.state.exchange[24].rate.toFixed(2))),
-            valueEUR: Number(e.target.value * (this.state.exchange[31].rate.toFixed(2))),
+            valueUAH: e.target.value,
+            valueUSD: e.target.value * (this.state.exchange[24].rate),
+            valueEUR: e.target.value * (this.state.exchange[31].rate),
         });
     }
 
     exchangeUSD(e) {
         this.setState({
-            valueUSD: Number(e.target.value).toFixed(2),
-            valueUAH: Number(e.target.value / (this.state.exchange[24].rate.toFixed(2))),
-            valueEUR: Number(e.target.value * (this.state.exchange[31].rate.toFixed(2)) / (this.state.exchange[24].rate.toFixed(2))),
+            valueUAH: e.target.value / (this.state.exchange[24].rate),
+            valueUSD: e.target.value,
+            valueEUR: e.target.value * (this.state.exchange[31].rate) / (this.state.exchange[24].rate),
         });
     }
 
     exchangeEUR(e) {
         this.setState({
-            valueEUR: Number(e.target.value).toFixed(2),
-            valueUAH: Number(e.target.value / (this.state.exchange[31].rate.toFixed(2))),
-            valueUSD: Number(e.target.value * (this.state.exchange[24].rate.toFixed(2)) / (this.state.exchange[31].rate.toFixed(2))),
+            valueUAH: e.target.value / (this.state.exchange[31].rate),
+            valueUSD: e.target.value * (this.state.exchange[24].rate) / (this.state.exchange[31].rate),
+            valueEUR: e.target.value,
         });
     }
 
@@ -61,13 +61,13 @@ class InputV extends React.Component {
             return (
                 <div>
                     <div>
-                        <input style={{margin: 10}} value={this.state.valueUAH} placeholder="UAH"
+                        <input style={{margin: 10}} value={Number(this.state.valueUAH).toFixed(2)} placeholder="UAH"
                                onChange={this.exchangeUAH}
                         />
-                        <input style={{margin: 10}} value={this.state.valueUSD} placeholder="USD"
+                        <input style={{margin: 10}} value={Number(this.state.valueUSD).toFixed(2)} placeholder="USD"
                                onChange={this.exchangeUSD}
                         />
-                        <input style={{margin: 10}} value={this.state.valueEUR} placeholder="EUR"
+                        <input style={{margin: 10}} value={Number(this.state.valueEUR).toFixed(2)} placeholder="EUR"
                                onChange={this.exchangeEUR}
                         />
                     </div>
