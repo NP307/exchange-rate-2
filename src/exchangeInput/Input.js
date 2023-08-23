@@ -61,13 +61,13 @@ class InputV extends React.Component {
             return (
                 <div>
                     <div>
-                        <input style={{margin: 10}} value={Number(this.state.valueUAH).toFixed(2)} placeholder="UAH"
+                        <input style={{margin: 10}} value={Number(this.state.valueUAH)} placeholder="UAH"
                                onChange={this.exchangeUAH}
                         />
-                        <input style={{margin: 10}} value={Number(this.state.valueUSD).toFixed(2)} placeholder="USD"
+                        <input style={{margin: 10}} value={Number(this.state.valueUSD)} placeholder="USD"
                                onChange={this.exchangeUSD}
                         />
-                        <input style={{margin: 10}} value={Number(this.state.valueEUR).toFixed(2)} placeholder="EUR"
+                        <input style={{margin: 10}} value={Number(this.state.valueEUR)} placeholder="EUR"
                                onChange={this.exchangeEUR}
                         />
                     </div>
