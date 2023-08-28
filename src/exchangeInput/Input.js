@@ -84,13 +84,7 @@ class InputV extends React.Component {
                         style={{margin: 10}}
                         value={inputItem.value}
                         placeholder={inputItem.placeholder}
-                        onChange={(e) => {
-                            this.setState({
-                                valueUAH: e.target.value,
-                                valueUSD: e.target.value * (this.state.exchange[24].rate),
-                                valueEUR: e.target.value * (this.state.exchange[31].rate),
-                            });
-                        }}
+                        onChange={inputItem.func}
                     />
                 )
             })
