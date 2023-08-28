@@ -77,10 +77,9 @@ class InputV extends React.Component {
 
     inputRender() {
         return(
-            this.state.inputData.map((inputItem, i) => {
+            this.state.inputData.map((inputItem) => {
                 return(
                     <input
-                        key={i}
                         style={{margin: 10}}
                         value={inputItem.value}
                         placeholder={inputItem.placeholder}
