@@ -10,8 +10,7 @@ class InputV extends React.Component {
             isLoading: true,
             exchange: {},
             inputData: [],
-        }
-        ;
+        };
 
         this.exchangeUAH = this.exchangeUAH.bind(this);
         this.exchangeUSD = this.exchangeUSD.bind(this);
@@ -27,7 +26,29 @@ class InputV extends React.Component {
                     isLoading: false
                 });
                 console.log(this.state.exchange)
-            })
+            });
+
+        this.setState({
+            inputData: [
+                {
+                    value: this.state.valueUAH,
+                    placeholder: 'UAH',
+                    func: this.exchangeUAH
+                },
+
+                {
+                    value: this.state.valueUSD,
+                    placeholder: 'USD',
+                    func: this.exchangeUSD
+                },
+
+                {
+                    value: this.state.valueEUR,
+                    placeholder: 'EUR',
+                    func: this.exchangeEUR
+                }
+            ],
+        });
     }
 
     exchangeUAH(e) {
@@ -54,43 +75,38 @@ class InputV extends React.Component {
         });
     }
 
+    inputRender() {
+        return(
+            this.state.inputData.map((inputItem, i) => {
+                return(
+                    <input
+                        key={i}
+                        style={{margin: 10}}
+                        value={inputItem.value}
+                        placeholder={inputItem.placeholder}
+                        onChange={(e) => {
+                            this.setState({
+                                valueUAH: e.target.value,
+                                valueUSD: e.target.value * (this.state.exchange[24].rate),
+                                valueEUR: e.target.value * (this.state.exchange[31].rate),
+                            });
+                        }}
+                    />
+                )
+            })
+        )
+    }
+
     render() {
         if(this.state.isLoading) {
             return (
                 <div>puk</div>
             )
         } else {
-            this.setState({inputData: [
-                    {
-                        value: this.state.valueUAH,
-                        placeholder: 'UAH',
-                        func: this.exchangeUAH
-                    },
-
-                    {
-                        value: this.state.valueUSD,
-                        placeholder: 'USD',
-                        func: this.exchangeUSD
-                    },
-
-                    {
-                        value: this.state.valueEUR,
-                        placeholder: 'EUR',
-                        func: this.exchangeEUR
-                    }
-                ]});
             return (
                 <div>
                     <div>
-                        {
-                            this.state.inputData.map(inputItem => {
-                                return(
-                                    <input style={{margin: 10}} value={Number(inputItem.value)} placeholder={inputItem.placeholder}
-                                           onChange={inputItem.func}
-                                    />
-                                )
-                            })
-                        }
+                        {this.inputRender()}
                     </div>
                 </div>
             )
