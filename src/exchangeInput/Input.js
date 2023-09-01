@@ -232,12 +232,21 @@ class InputV extends React.Component {
         });
 
         console.log(this.getCurrency(this.state.exchange, 'USD'));
+        console.log(this.getCurrency(this.state.exchange, 'UAH1'));
     }
 
     getCurrency(exchange, currency) {
-        return exchange.find((item) => {
+        if(currency === 'UAH') {
+            return 1
+        }
+        const rate = exchange.find((item) => {
             return item.cc === currency
-        }).rate
+        })?.rate;
+        if (!rate) {
+            console.error("incorrect currency name");
+            return 0
+        }
+        return rate
     }
 
     exchange(e, koefs) {
