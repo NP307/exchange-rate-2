@@ -194,6 +194,7 @@ class InputV extends React.Component {
         };
 
         this.exchange = this.exchange.bind(this);
+        this.createInputData = this.createInputData.bind(this);
         /*this.exchangeUAH = this.exchangeUAH.bind(this);
         this.exchangeUSD = this.exchangeUSD.bind(this);
         this.exchangeEUR = this.exchangeEUR.bind(this);*/
@@ -207,7 +208,7 @@ class InputV extends React.Component {
                     exchange: res,
                     isLoading: false
                 });
-            });*/
+            });
 
         this.setState({
             inputData: [
@@ -220,20 +221,82 @@ class InputV extends React.Component {
                 {
                     value: '',
                     placeholder: 'USD',
-                    koefs: [this.state.exchange[24].rate, 1 ,this.state.exchange[31].rate / this.state.exchange[24].rate]
+                    koefs: [this.state.exchange[24].rate, 1 ,this.state.exchange[24].rate / this.state.exchange[31].rate]
                 },
 
                 {
                     value: '',
                     placeholder: 'EUR',
-                    koefs: [this.state.exchange[31].rate, this.state.exchange[24].rate / this.state.exchange[31].rate, 1]
+                    koefs: [this.state.exchange[31].rate, this.state.exchange[31].rate / this.state.exchange[24].rate, 1]
                 }
             ],
+        });*/
+
+        this.createInputData();
+    }
+
+    /*
+        UAH/UAH UAH/USD UAH/EUR
+        USD/UAH USD/USD USD/EUR
+        EUR/UAH EUR/USD EUR/EUR
+    */
+
+    createInputData() {
+        const nameKoef = ["UAH", "USD", "EUR", "CAD"];
+        let getKoef = nameKoef.map((item) => {
+            return this.getCurrency(this.state.exchange, item)
+        });
+        let mathKoef = [];
+        getKoef.map((item) => {
+            let arr = [];
+            getKoef.map((dil) => {
+                return arr.push(item / dil)
+            });
+            return mathKoef.push(arr)
+        });
+        this.setState({
+            inputData: (
+                mathKoef.map((item, index) => {
+                    return (
+                        {
+                            value: '',
+                            placeholder: nameKoef[index],
+                            koefs: item,
+                        }
+                    )
+                })
+            )
         });
 
-        console.log(this.getCurrency(this.state.exchange, 'USD'));
-        console.log(this.getCurrency(this.state.exchange, 'UAH1'));
+        return this.state.inputData;
     }
+
+    /*createInputData() {
+        const nameKoef = ["UAH", "USD", "EUR"];
+        let getKoef = nameKoef.map((item) => {
+            return this.getCurrency(this.state.exchange, item)
+        });
+        let mathKoef = [];
+        getKoef.map((item) => {
+            let arr = [];
+            getKoef.map((dil) => {
+                return arr.push(item / dil)
+            });
+            return mathKoef.push(arr)
+        });
+        let inputDataItem = mathKoef.map((item, index, array) => {
+            return (
+                {
+                    value: '',
+                    placeholder: nameKoef[index],
+                    koefs: item,
+                }
+            )
+        });
+        this.state.inputData.push(inputDataItem);
+
+        return this.state.inputData
+    }*/
 
     getCurrency(exchange, currency) {
         if(currency === 'UAH') {
