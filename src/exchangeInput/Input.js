@@ -5,7 +5,7 @@ class InputV extends React.Component {
         super(props);
         this.state = {
             isLoading: true,
-            exchange: [],
+            exchangeArray: [],
             inputData: [],
         };
 
@@ -18,25 +18,25 @@ class InputV extends React.Component {
             .then((res) => res.json())
             .then((res) => {
                 this.setState({
-                    exchange: res,
+                    exchangeArray: res,
                     isLoading: false
                 });
                 this.createInputData();
+                console.log(this.state.exchange)
             });
     }
 
     createInputData() {
         const nameKoef = ["UAH", "USD", "EUR", "CAD"];
-        let getKoef = nameKoef.map((item) => {
-            return this.getCurrency(this.state.exchange, item)
+        const koefsArray = nameKoef.map((item) => {
+            return this.getCurrency(this.state.exchangeArray, item)
         });
-        let mathKoef = [];
-        getKoef.map((item) => {
+        let mathKoef = koefsArray.map((item) => {
             let arr = [];
-            getKoef.map((dil) => {
+            koefsArray.map((dil) => {
                 return arr.push(item / dil)
             });
-            return mathKoef.push(arr)
+            return arr
         });
         this.setState({
             inputData: (
@@ -100,7 +100,7 @@ class InputV extends React.Component {
     render() {
         if(this.state.isLoading) {
             return (
-                <div>puk</div>
+                <div>Loading</div>
             )
         } else {
             return (
