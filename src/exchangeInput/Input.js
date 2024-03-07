@@ -117,7 +117,6 @@ class InputV extends React.Component {
                         {
                             this.state.exchangeArray.map((item) => {
                                 return <div onClick={() => {
-                                    console.log(item.cc);
                                     if(!this.state.nameKoef.includes(item.cc)){
                                         this.state.nameKoef.push(item.cc);
                                     } else {
