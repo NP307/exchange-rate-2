@@ -60,34 +60,6 @@ class InputV extends React.Component {
         return this.state.inputData;
     }
 
-    //версія чата GPT
-    /*createInputData() {
-        const koefsArray = this.state.nameKoef.map((item) => {
-            return this.getCurrency(this.state.exchangeArray, item)
-        });
-
-        let mathKoef = koefsArray.map((item) => {
-            let arr = [];
-            koefsArray.forEach((dil) => {
-                arr.push(item / dil)
-            });
-            return arr
-        });
-
-        // Оновлення inputData з новими коефіцієнтами або створення нових об'єктів, якщо потрібно
-        const newInputData = this.state.nameKoef.map((name, index) => {
-            const existingInput = this.state.inputData.find(input => input.placeholder === name);
-            return {
-                value: existingInput ? existingInput.value : '',
-                placeholder: name,
-                koefs: mathKoef[index] || [],
-            }
-        });
-
-        this.setState({ inputData: newInputData });
-    }*/
-    //версія чата GPT
-
     getCurrency(exchange, currency) {
         if(currency === 'UAH') {
             return 1
