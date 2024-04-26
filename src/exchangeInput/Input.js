@@ -27,7 +27,7 @@ class InputV extends React.Component {
                 });
                 this.setState({
                     exchangeArray: res,
-                    isLoading: false
+                    isLoading: false,
                 });
             });
     }
@@ -60,6 +60,34 @@ class InputV extends React.Component {
         return this.state.inputData;
     }
 
+    //версія чата GPT
+    /*createInputData() {
+        const koefsArray = this.state.nameKoef.map((item) => {
+            return this.getCurrency(this.state.exchangeArray, item)
+        });
+
+        let mathKoef = koefsArray.map((item) => {
+            let arr = [];
+            koefsArray.forEach((dil) => {
+                arr.push(item / dil)
+            });
+            return arr
+        });
+
+        // Оновлення inputData з новими коефіцієнтами або створення нових об'єктів, якщо потрібно
+        const newInputData = this.state.nameKoef.map((name, index) => {
+            const existingInput = this.state.inputData.find(input => input.placeholder === name);
+            return {
+                value: existingInput ? existingInput.value : '',
+                placeholder: name,
+                koefs: mathKoef[index] || [],
+            }
+        });
+
+        this.setState({ inputData: newInputData });
+    }*/
+    //версія чата GPT
+
     getCurrency(exchange, currency) {
         if(currency === 'UAH') {
             return 1
@@ -75,6 +103,7 @@ class InputV extends React.Component {
     }
 
     exchange(e, koefs) {
+        console.log(koefs);
         const newInputData = koefs.map((koef, index) => {
             return {
                 ...this.state.inputData[index],
@@ -89,6 +118,7 @@ class InputV extends React.Component {
     inputRender() {
         return(
             this.state.inputData.map((inputItem, i) => {
+                console.log(inputItem);
                 return(
                     <input
                         key={i}
@@ -120,8 +150,8 @@ class InputV extends React.Component {
                                     if(!this.state.nameKoef.includes(item.cc)){
                                         this.state.nameKoef.push(item.cc);
                                     } else {
-                                        let ind = this.state.nameKoef.indexOf(item.cc);
-                                        delete this.state.nameKoef[ind];
+                                        const ind = this.state.nameKoef.indexOf(item.cc);
+                                        this.state.nameKoef.splice(ind, 1);
                                     }
                                     this.createInputData();
                                 }}>{item.txt}</div>
